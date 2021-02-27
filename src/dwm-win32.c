@@ -554,8 +554,9 @@ setselected(Client *c) {
 void
 focus(Client *c) {
     setselected(c);
-    if (sel)
+    if (sel) {
         SetForegroundWindow(sel->hwnd);
+    }
 }
 
 void
@@ -1559,8 +1560,19 @@ view(const Arg *arg) {
     if ((arg->ui & TAGMASK) == tagset[seltags])
         return;
     seltags ^= 1; /* toggle sel tagset */
-    if (arg->ui & TAGMASK)
+
+    if (arg->ui & TAGMASK) {
+        // Bug fix: When switching tags, web-based applications do not properly focus
+        // I hate to use the Sleep() function here, but there is some kind of race 
+        // condition where focus isn't obtained if windows are switched immediately
+        // Add new tag to last set then arrange
+        tagset[seltags] = arg->ui & TAGMASK | tagset[seltags ^ 1];
+        arrange();
+        Sleep(100);
+
+        // Now set to only new tag
         tagset[seltags] = arg->ui & TAGMASK;
+    }
     arrange();
 }
 
