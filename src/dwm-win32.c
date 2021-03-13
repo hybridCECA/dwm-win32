@@ -1565,8 +1565,8 @@ view(const Arg *arg) {
         // Bug fix: When switching tags, web-based applications do not properly focus
         // I hate to use the Sleep() function here, but there is some kind of race 
         // condition where focus isn't obtained if windows are switched immediately
-        // Add new tag to last set then arrange
-        tagset[seltags] = arg->ui & TAGMASK | tagset[seltags ^ 1];
+        // Arrange no tags
+        tagset[seltags] = 0;
         arrange();
         Sleep(100);
 
