@@ -116,6 +116,7 @@ struct Client {
     bool isalive;
     bool ignore;
     bool ignoreborder;
+    bool disableresizeoffset;
     bool border;
     bool wasvisible;
     bool isfixed, isurgent; // XXX: useless?
@@ -142,6 +143,7 @@ typedef struct {
     unsigned int tags;
     bool isfloating;
     bool ignoreborder;
+    bool disableresizeoffset;
 } Rule;
 
 /* function declarations */
@@ -244,6 +246,7 @@ applyrules(Client *c) {
         && (!r->class || wcsstr(getclientclassname(c->hwnd), r->class))) {
             c->isfloating = r->isfloating;
             c->ignoreborder = r->ignoreborder;
+            c->disableresizeoffset = r->disableresizeoffset;
             c->tags |= r->tags & TAGMASK ? r->tags & TAGMASK : tagset[seltags]; 
         }
     }
@@ -906,7 +909,14 @@ resize(Client *c, int x, int y, int w, int h) {
         c->w = w;
         c->h = h;
         debug(L" resize %d: %s: x: %d y: %d w: %d h: %d\n", c->hwnd, getclienttitle(c->hwnd), x, y, w, h);
-        SetWindowPos(c->hwnd, HWND_TOP, c->x, c->y, c->w, c->h, SWP_NOACTIVATE);
+
+        if (!c->disableresizeoffset) {
+            x += xOffset;
+            y += yOffset;
+            w += wOffset;
+            h += hOffset;
+        }
+        SetWindowPos(c->hwnd, HWND_TOP, x, y, w, h, SWP_NOACTIVATE);
     }
 }
 
