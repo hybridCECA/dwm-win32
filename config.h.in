@@ -69,11 +69,11 @@ static int hOffset = 7;
 
 static Layout layouts[] = {
     /* symbol     arrange function */
-    { L"[]=",      tile },    /* first entry is default */
-    { L"><>",      NULL },    /* no layout function means floating behavior */
-    { L"[M]",      monocle },
-    { L"TTT",      bstack },
-    { L"###",      gaplessgrid },
+    { L"T",      tile },    /* first entry is default */
+    { L"F",      NULL },    /* no layout function means floating behavior */
+    { L"M",      monocle },
+    { L"B",      bstack },
+    { L"G",      gaplessgrid },
     { L"+++",      grid },
     { L"(@)",      spiral },
     { L"[\\]",     dwindle },
