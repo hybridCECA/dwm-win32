@@ -1441,11 +1441,14 @@ toggleborder(const Arg *arg) {
 
 void
 toggleexplorer(const Arg *arg) {
+    // Do not toggle this one
+    /*
     HWND hwnd = FindWindowW(L"Progman", L"Program Manager");
     if (hwnd)
         setvisibility(hwnd, !IsWindowVisible(hwnd));
+    */
 
-    hwnd = FindWindowW(L"Shell_TrayWnd", NULL);
+    HWND hwnd = FindWindowW(L"Shell_TrayWnd", NULL);
     if (hwnd)
         setvisibility(hwnd, !IsWindowVisible(hwnd));
 
