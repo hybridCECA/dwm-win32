@@ -70,9 +70,9 @@ static int hOffset = 7;
 
 static Layout layouts[] = {
     /* symbol     arrange function */
-    { L"T",      tile },    /* first entry is default */
+    { L"M",      monocle }, // First entry is default
     { L"F",      NULL },    /* no layout function means floating behavior */
-    { L"M",      monocle },
+    { L"T",      tile },
     { L"B",      bstack },
     { L"G",      gaplessgrid },
     { L"+++",      grid },
@@ -112,9 +112,10 @@ static Key keys[] = {
     { MODKEY|MOD_CONTROL,           VK_RETURN, zoom,                {0} },
     { MODKEY,                       VK_TAB,    view,                {0} },
     { MODKEY|MOD_SHIFT,             'C',       killclient,          {0} },
-    { MODKEY,                       'T',       setlayout,           {.v = &layouts[0]} },
+    { MODKEY|MOD_SHIFT,             'F',       forcearrange,        {0} },
+    { MODKEY,                       'M',       setlayout,           {.v = &layouts[0]} },
     { MODKEY,                       'F',       setlayout,           {.v = &layouts[1]} },
-    { MODKEY,                       'M',       setlayout,           {.v = &layouts[2]} },
+    { MODKEY,                       'T',       setlayout,           {.v = &layouts[2]} },
     { MODKEY,                       'B',       setlayout,           {.v = &layouts[3]} },
     { MODKEY,                       'G',       setlayout,           {.v = &layouts[4]} },
     { MODKEY|MOD_SHIFT,             'G',       setlayout,           {.v = &layouts[5]} },

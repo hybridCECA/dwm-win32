@@ -162,6 +162,7 @@ void drawborder(Client *c, COLORREF color);
 void eprint(bool premortem, const wchar_t *errstr, ...);
 static void focus(Client *c);
 static void focusstack(const Arg *arg);
+static void forcearrange(const Arg *arg);
 static void movestack(const Arg *arg);
 static Client *getclient(HWND hwnd);
 LPWSTR getclientclassname(HWND hwnd);
@@ -586,6 +587,18 @@ focusstack(const Arg *arg) {
         focus(c);
         restack();
     }
+}
+
+void
+forcearrange(const Arg *arg) {
+    for (Client* c = clients; c; c = c->next) {
+        c->x = 0;
+        c->y = 0;
+        c->w = 0;
+        c->h = 0;
+    }
+
+    arrange();
 }
 
 Client *
